@@ -1,0 +1,146 @@
+#include <iostream>
+using namespace std;
+
+// Node structure
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int val) {
+        data = val;
+        next = nullptr;
+    }
+};
+
+// Insert at beginning
+Node* insert_begin(Node* start, int data) {
+    Node* temp = new Node(data);
+
+    if (start == nullptr) {
+        temp->next = temp;
+        start = temp;
+        return start;
+    }
+
+    Node* curr = start;
+    while (curr->next != start)
+        curr = curr->next;
+
+    temp->next = start;
+    curr->next = temp;
+    start = temp;
+    return start;
+}
+
+// Insert at end
+Node* insert_end(Node* start, int data) {
+    Node* temp = new Node(data);
+
+    if (start == nullptr) {
+        temp->next = temp;
+        start = temp;
+        return start;
+    }
+
+    Node* curr = start;
+    while (curr->next != start)
+        curr = curr->next;
+
+    curr->next = temp;
+    temp->next = start;
+    return start;
+}
+
+// Delete a node
+Node* delete_node(Node* start, int key) {
+    if (start == nullptr) return start;
+
+    Node* curr = start;
+    Node* prev = nullptr;
+
+    // Single node case
+    if (start->data == key && start->next == start) {
+        delete start;
+        return nullptr;
+    }
+
+    // If first node is to be deleted
+    if (start->data == key) {
+        curr = start;
+        while (curr->next != start)
+            curr = curr->next;
+        curr->next = start->next;
+        delete start;
+        start = curr->next;
+        return start;
+    }
+
+    prev = start;
+    curr = start->next;
+    while (curr != start && curr->data != key) {
+        prev = curr;
+        curr = curr->next;
+    }
+
+    if (curr == start) {
+        cout << "Element not found" << endl;
+        return start;
+    }
+
+    prev->next = curr->next;
+    delete curr;
+    return start;
+}
+
+// Display the circular linked list
+void display(Node* start) {
+    if (start == nullptr) {
+        cout << "List is empty" << endl;
+        return;
+    }
+
+    Node* curr = start;
+    do {
+        cout << curr->data << " ";
+        curr = curr->next;
+    } while (curr != start);
+    cout << endl;
+}
+
+// -------- Main Program --------
+int main() {
+    Node* start = nullptr;
+
+    start = insert_end(start, 10);
+    start = insert_end(start, 20);
+    start = insert_end(start, 30);
+    start = insert_begin(start, 5);
+
+    cout << "Circular Linked List: ";
+    display(start);
+
+    start = delete_node(start, 20);
+    cout << "After deleting 20: ";
+    display(start);
+
+    start = delete_node(start, 5);
+    cout << "After deleting 5: ";
+    display(start);
+
+    start = delete_node(start, 100); // not found
+    cout << "After trying to delete 100: ";
+    display(start);
+
+    return 0;
+}
+
+Output:
+Circular Linked List: 5 10 20 30 
+After deleting 20: 5 10 30 
+After deleting 5: 10 30 
+Element not found
+After trying to delete 100: 10 30 
+
+
+=== Code Execution Successful ===
