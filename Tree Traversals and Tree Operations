@@ -135,3 +135,18 @@ int main() {
 
     return 0;
 }
+Output:
+Search 30: True
+Height of tree: 2
+Total nodes: 5
+Leaf nodes: 3
+
+Preorder Traversal:
+10 20 40 50 30 
+Inorder Traversal:
+40 20 50 10 30 
+Postorder Traversal:
+40 50 20 30 10 
+Level Order Traversal:
+10 20 30 40 50 
+=== Code Execution Successful ===
