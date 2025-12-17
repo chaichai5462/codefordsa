@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+#define MAX 100
+
+int stackArr[MAX];
+int topIndex = -1;
+
+void push(int x) {
+    if (topIndex == MAX - 1) {
+        cout << "Stack Overflow\n";
+        return;
+    }
+    stackArr[++topIndex] = x;
+}
+
+void pop() {
+    if (topIndex == -1) {
+        cout << "Stack Underflow\n";
+        return;
+    }
+    topIndex--;
+}
+
+void top() {
+    if (topIndex == -1) {
+        cout << "Stack is Empty\n";
+        return;
+    }
+    cout << stackArr[topIndex] << endl;
+}
+
+void size() {
+    cout << topIndex + 1 << endl;
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+
+    top();
+    size();
+
+    pop();
+    top();
+    size();
+
+    return 0;
+}
