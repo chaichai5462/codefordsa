@@ -1,0 +1,43 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int prec(char c) {
+    if (c == '+' || c == '-') return 1;
+    if (c == '*' || c == '/') return 2;
+    return 0;
+}
+
+int main() {
+    string infix;
+    stack<char> st;
+
+    cout << "Enter infix expression: ";
+    cin >> infix;
+
+    for (char c : infix) {
+        if (isalnum(c))
+            cout << c;
+        else if (c == '(')
+            st.push(c);
+        else if (c == ')') {
+            while (st.top() != '(') {
+                cout << st.top();
+                st.pop();
+            }
+            st.pop();
+        } else {
+            while (!st.empty() && prec(st.top()) >= prec(c)) {
+                cout << st.top();
+                st.pop();
+            }
+            st.push(c);
+        }
+    }
+
+    while (!st.empty()) {
+        cout << st.top();
+        st.pop();
+    }
+    return 0;
+}
