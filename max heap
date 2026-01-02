@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+int heap[50], size = 0;
+
+void insert(int x) {
+    heap[++size] = x;
+    int i = size;
+
+    while (i > 1 && heap[i] > heap[i/2]) {
+        swap(heap[i], heap[i/2]);
+        i = i / 2;
+    }
+}
+
+void display() {
+    for (int i = 1; i <= size; i++)
+        cout << heap[i] << " ";
+}
+
+int main() {
+    insert(10);
+    insert(30);
+    insert(20);
+    cout << "Heap elements: ";
+    display();
+    return 0;
+}
